@@ -1,0 +1,14 @@
+{
+  "name": "website-content",
+  "version": "1.0.0",
+  "description": "Provides the content for a website in JSON format without a database.",
+  "main": "index.js",
+  "author": "Peter R. Stuhlmann",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
