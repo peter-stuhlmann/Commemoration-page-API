@@ -21,4 +21,10 @@ app.get('/', cors(corsOptionsDelegate), (req, res) => {
   res.status(200).send({ data });
 });
 
+app.all('*', (req, res) => {
+  res
+    .status(404)
+    .send(`Error 404: Can't find ${req.originalUrl} on this server!`);
+});
+
 app.listen(port, () => console.log(`API listening on port ${port}`));
