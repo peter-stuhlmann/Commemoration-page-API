@@ -21,6 +21,8 @@ app.get('/', cors(corsOptionsDelegate), (req, res) => {
   res.status(200).send({ data });
 });
 
+app.use('/img', express.static(__dirname + '/img'));
+
 app.all('*', (req, res) => {
   res
     .status(404)
