@@ -9,7 +9,7 @@
 
 ## How to use
 
-Simply paste your content into the [content.js](./data/content.js) file and add the domain(s) that will fetch this data to the [whitelist](./whitelist.js). Don't forget to install the node_modules.
+Simply paste your content into the [content.js](./data/content.js) file and add the domain(s) that will fetch this data to the [whitelist](./whitelist.js). You can also create a folder /img and paste pictures into it. The necessary configurations for this already exist. Don't forget to install the node_modules.
 
 ## Live demo
 
