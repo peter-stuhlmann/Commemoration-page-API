@@ -11,7 +11,7 @@
       "src": "/(.*)",
       "dest": "/index.js",
       "headers": {
-        "cache-control": "s-maxage=31536000, immutable"
+        "cache-control": "max-age=3600"
       }
     }
   ]
