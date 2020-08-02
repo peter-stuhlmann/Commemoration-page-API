@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Provides the content for a website in JSON format without a database.",
   "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
   "author": "Peter R. Stuhlmann",
   "license": "MIT",
   "dependencies": {
