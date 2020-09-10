@@ -39,6 +39,33 @@ routes.get('/concerts', cors(corsOptionsDelegate), async (req, res) => {
   }
 });
 
+routes.get('/concerts/:id', cors(corsOptionsDelegate), async (req, res) => {
+  try {
+    const concert = await Concert.find({ _id: req.params.id });
+
+    const programs = concert[0].program.map((program) => {
+      return {
+        composer: program.composer,
+        piece: program.piece,
+      };
+    });
+
+    const response = {
+      id: concert[0].id,
+      year: concert[0].year,
+      date: concert[0].date,
+      program: programs,
+      location: concert[0].location,
+      venue: concert[0].venue,
+      participants: concert[0].participants,
+    };
+
+    res.json(response);
+  } catch (err) {
+    res.json({ error: err });
+  }
+});
+
 routes.get('/discography', cors(corsOptionsDelegate), async (req, res) => {
   try {
     const albums = await Album.find(req.query);
