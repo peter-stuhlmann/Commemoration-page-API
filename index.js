@@ -5,6 +5,8 @@ const cors = require('cors');
 const port = process.env.PORT || 4000;
 const connectMongo = require('./db/db');
 
+const Album = require('./db/models/albums');
+
 // connect to DB
 connectMongo();
 
@@ -22,6 +24,44 @@ var corsOptionsDelegate = function (req, callback) {
 
 app.get('/', cors(corsOptionsDelegate), (req, res) => {
   res.status(200).send({ data });
+});
+
+app.get('/discography', cors(corsOptionsDelegate), async (req, res) => {
+  try {
+    const albums = await Album.find(req.query);
+
+    const response = albums.map((album) => {
+      const contributingArtists = album.contributingArtists.map(
+        (contributingArtist) => {
+          return {
+            name: contributingArtist.name,
+            instrument: contributingArtist.instrument,
+          };
+        }
+      );
+
+      const tracklist = album.tracklist.map((track) => {
+        return {
+          composer: track.composer,
+          piece: track.piece,
+        };
+      });
+
+      return {
+        id: album.id,
+        title: album.title,
+        img: album.img,
+        year: album.year,
+        format: album.format,
+        contributingArtists: contributingArtists,
+        tracklist: tracklist,
+        label: album.label,
+      };
+    });
+    res.json(response);
+  } catch (err) {
+    res.json({ error: err });
+  }
 });
 
 app.use('/img', express.static(__dirname + '/img'));
