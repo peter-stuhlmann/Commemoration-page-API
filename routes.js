@@ -8,7 +8,7 @@ const Album = require('./db/models/albums');
 const Concert = require('./db/models/concerts');
 
 routes.get('/', cors(corsOptionsDelegate), (req, res) => {
-  res.status(200).send({ data });
+  res.status(200).send('Hello World!');
 });
 
 routes.get('/concerts', cors(corsOptionsDelegate), async (req, res) => {
