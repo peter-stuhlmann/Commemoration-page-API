@@ -64,6 +64,43 @@ app.get('/discography', cors(corsOptionsDelegate), async (req, res) => {
   }
 });
 
+app.get('/discography/:id', cors(corsOptionsDelegate), async (req, res) => {
+  try {
+    const album = await Album.find({ _id: req.params.id });
+
+    const contributingArtists = album[0].contributingArtists.map(
+      (contributingArtist) => {
+        return {
+          name: contributingArtist.name,
+          instrument: contributingArtist.instrument,
+        };
+      }
+    );
+
+    const tracklist = album[0].tracklist.map((track) => {
+      return {
+        composer: track.composer,
+        piece: track.piece,
+      };
+    });
+
+    const response = {
+      id: album[0].id,
+      title: album[0].title,
+      img: album[0].img,
+      year: album[0].year,
+      format: album[0].format,
+      contributingArtists: contributingArtists,
+      tracklist: tracklist,
+      label: album[0].label,
+    };
+
+    res.json(response);
+  } catch (err) {
+    res.json({ error: err });
+  }
+});
+
 app.use('/img', express.static(__dirname + '/img'));
 
 app.all('*', (req, res) => {
