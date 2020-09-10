@@ -3,8 +3,10 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const port = process.env.PORT || 4000;
+const connectMongo = require('./db/db');
 
-const { data } = require('./data');
+// connect to DB
+connectMongo();
 
 const { whitelist } = require('./whitelist');
 
