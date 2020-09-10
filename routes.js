@@ -3,10 +3,40 @@ const routes = express.Router();
 const cors = require('cors');
 
 const corsOptionsDelegate = require('./corsOptions');
+
 const Album = require('./db/models/albums');
+const Concert = require('./db/models/concerts');
 
 routes.get('/', cors(corsOptionsDelegate), (req, res) => {
   res.status(200).send({ data });
+});
+
+routes.get('/concerts', cors(corsOptionsDelegate), async (req, res) => {
+  try {
+    const concerts = await Concert.find(req.query);
+
+    const response = concerts.map((concert) => {
+      const programs = concert.program.map((program) => {
+        return {
+          composer: program.composer,
+          piece: program.piece,
+        };
+      });
+
+      return {
+        id: concert.id,
+        year: concert.year,
+        date: concert.date,
+        program: programs,
+        location: concert.location,
+        venue: concert.venue,
+        participants: concert.participants,
+      };
+    });
+    res.json(response);
+  } catch (err) {
+    res.json({ error: err });
+  }
 });
 
 routes.get('/discography', cors(corsOptionsDelegate), async (req, res) => {
