@@ -6,6 +6,7 @@ const corsOptionsDelegate = require('./corsOptions');
 
 const Album = require('./db/models/albums');
 const Concert = require('./db/models/concerts');
+const Repertoire = require('./db/models/repertoire');
 
 routes.get('/', cors(corsOptionsDelegate), (req, res) => {
   res.status(200).send('Hello World!');
@@ -135,6 +136,22 @@ routes.get('/discography/:id', cors(corsOptionsDelegate), async (req, res) => {
       label: album[0].label,
     };
 
+    res.json(response);
+  } catch (err) {
+    res.json({ error: err });
+  }
+});
+
+routes.get('/repertoire', cors(corsOptionsDelegate), async (req, res) => {
+  try {
+    const repertoire = await Repertoire.find(req.query);
+
+    const response = repertoire.map((repertoire) => {
+      return {
+        id: repertoire.id,
+        repertoire: repertoire.repertoire,
+      };
+    });
     res.json(response);
   } catch (err) {
     res.json({ error: err });
