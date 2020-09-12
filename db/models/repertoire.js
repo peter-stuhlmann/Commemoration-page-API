@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const repertoireSchema = mongoose.Schema(
   {
-    repertoire: {
-      type: Array,
+    piece: {
+      type: String,
     },
   },
   { versionKey: false }
 );
 
-module.exports = mongoose.model('repertoires', repertoireSchema);
+module.exports = mongoose.model('pieces', repertoireSchema);

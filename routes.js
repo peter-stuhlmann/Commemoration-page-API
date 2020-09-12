@@ -146,10 +146,10 @@ routes.get('/repertoire', cors(corsOptionsDelegate), async (req, res) => {
   try {
     const repertoire = await Repertoire.find(req.query);
 
-    const response = repertoire.map((repertoire) => {
+    const response = repertoire.map((piece) => {
       return {
-        id: repertoire.id,
-        repertoire: repertoire.repertoire,
+        id: piece.id,
+        piece: piece.piece,
       };
     });
     res.json(response);
