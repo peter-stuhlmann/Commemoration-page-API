@@ -6,6 +6,7 @@ const corsOptionsDelegate = require('./corsOptions');
 
 const Album = require('./db/models/albums');
 const Concert = require('./db/models/concerts');
+const Orchestra = require('./db/models/orchestras');
 const Repertoire = require('./db/models/repertoire');
 
 routes.get('/', cors(corsOptionsDelegate), (req, res) => {
@@ -136,6 +137,22 @@ routes.get('/discography/:id', cors(corsOptionsDelegate), async (req, res) => {
       label: album[0].label,
     };
 
+    res.json(response);
+  } catch (err) {
+    res.json({ error: err });
+  }
+});
+
+routes.get('/orchestras', cors(corsOptionsDelegate), async (req, res) => {
+  try {
+    const orchestras = await Orchestra.find(req.query);
+
+    const response = orchestras.map((orchestra) => {
+      return {
+        id: orchestra.id,
+        orchestra: orchestra.orchestra,
+      };
+    });
     res.json(response);
   } catch (err) {
     res.json({ error: err });
