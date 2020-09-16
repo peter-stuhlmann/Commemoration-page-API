@@ -8,6 +8,7 @@ const Album = require('./db/models/albums');
 const Choir = require('./db/models/choirs');
 const Concert = require('./db/models/concerts');
 const Orchestra = require('./db/models/orchestras');
+const Page = require('./db/models/pages');
 const Picture = require('./db/models/pictures');
 const Repertoire = require('./db/models/repertoire');
 
@@ -171,6 +172,52 @@ routes.get('/orchestras', cors(corsOptionsDelegate), async (req, res) => {
         orchestra: orchestra.orchestra,
       };
     });
+    res.json(response);
+  } catch (err) {
+    res.json({ error: err });
+  }
+});
+
+routes.get('/pages', cors(corsOptionsDelegate), async (req, res) => {
+  try {
+    const pages = await Page.find(req.query);
+
+    const response = pages.map((page) => {
+      const metaData = {
+        title: page.meta.title,
+        description: page.meta.description,
+      };
+
+      return {
+        id: page.id,
+        path: page.path,
+        title: page.title,
+        content: page.content,
+        meta: metaData,
+      };
+    });
+    res.json(response);
+  } catch (err) {
+    res.json({ error: err });
+  }
+});
+
+routes.get('/pages/:path', cors(corsOptionsDelegate), async (req, res) => {
+  try {
+    const page = await Page.find({ path: req.params.path });
+
+    const metaData = {
+      title: page[0].meta.title,
+      description: page[0].meta.description,
+    };
+
+    const response = {
+      id: page[0].id,
+      path: page[0].path,
+      title: page[0].title,
+      content: page[0].content,
+      meta: metaData,
+    };
     res.json(response);
   } catch (err) {
     res.json({ error: err });
