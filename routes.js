@@ -5,12 +5,29 @@ const cors = require('cors');
 const corsOptionsDelegate = require('./corsOptions');
 
 const Album = require('./db/models/albums');
+const Choir = require('./db/models/choirs');
 const Concert = require('./db/models/concerts');
 const Orchestra = require('./db/models/orchestras');
 const Repertoire = require('./db/models/repertoire');
 
 routes.get('/', cors(corsOptionsDelegate), (req, res) => {
   res.status(200).send('Hello World!');
+});
+
+routes.get('/choirs', cors(corsOptionsDelegate), async (req, res) => {
+  try {
+    const choirs = await Choir.find(req.query);
+
+    const response = choirs.map((choir) => {
+      return {
+        id: choir.id,
+        choir: choir.choir,
+      };
+    });
+    res.json(response);
+  } catch (err) {
+    res.json({ error: err });
+  }
 });
 
 routes.get('/concerts', cors(corsOptionsDelegate), async (req, res) => {
