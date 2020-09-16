@@ -8,6 +8,7 @@ const Album = require('./db/models/albums');
 const Choir = require('./db/models/choirs');
 const Concert = require('./db/models/concerts');
 const Orchestra = require('./db/models/orchestras');
+const Picture = require('./db/models/pictures');
 const Repertoire = require('./db/models/repertoire');
 
 routes.get('/', cors(corsOptionsDelegate), (req, res) => {
@@ -170,6 +171,48 @@ routes.get('/orchestras', cors(corsOptionsDelegate), async (req, res) => {
         orchestra: orchestra.orchestra,
       };
     });
+    res.json(response);
+  } catch (err) {
+    res.json({ error: err });
+  }
+});
+
+routes.get('/pictures', cors(corsOptionsDelegate), async (req, res) => {
+  try {
+    const pictures = await Picture.find(req.query);
+
+    const response = pictures.map((picture) => {
+      return {
+        id: picture.id,
+        src: picture.src,
+        srcSet: picture.srcSet,
+        sizes: picture.sizes,
+        width: picture.width,
+        height: picture.height,
+        title: picture.title,
+        alt: picture.alt,
+      };
+    });
+    res.json(response);
+  } catch (err) {
+    res.json({ error: err });
+  }
+});
+
+routes.get('/pictures/:id', cors(corsOptionsDelegate), async (req, res) => {
+  try {
+    const picture = await Picture.find({ _id: req.params.id });
+
+    const response = {
+      id: picture[0].id,
+      src: picture[0].src,
+      srcSet: picture[0].srcSet,
+      sizes: picture[0].sizes,
+      width: picture[0].width,
+      height: picture[0].height,
+      title: picture[0].title,
+      alt: picture[0].alt,
+    };
     res.json(response);
   } catch (err) {
     res.json({ error: err });
