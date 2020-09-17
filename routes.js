@@ -1,6 +1,7 @@
 const express = require('express');
 const routes = express.Router();
 const cors = require('cors');
+const nodemailer = require('nodemailer');
 
 const corsOptionsDelegate = require('./corsOptions');
 
@@ -280,6 +281,44 @@ routes.get('/repertoire', cors(corsOptionsDelegate), async (req, res) => {
   } catch (err) {
     res.json({ error: err });
   }
+});
+
+routes.post('/send-message', cors(corsOptionsDelegate), (req, res) => {
+  const transporter = nodemailer.createTransport({
+    host: process.env.HOST,
+    port: 587,
+    auth: {
+      user: process.env.MAIL,
+      pass: process.env.PASS,
+    },
+  });
+
+  const name = req.body.name;
+  const email = req.body.email;
+  const subject = req.body.subject;
+  const message = req.body.message;
+  // const html = `<b>Name</b>: ${name}<br /><b>E-Mail:</b> ${email}<br /><b>Subject:</b> ${subject}<br /><b>Message:</b> ${message} `;
+  const text = `Name: ${name} \n E-Mail: ${email} \n Subject: ${subject} \n Message: ${message} `;
+
+  const mail = {
+    from: `"${name}" ${email}`,
+    to: process.env.MAIL,
+    subject: subject,
+    // html: html,
+    text: text,
+  };
+
+  transporter.sendMail(mail, (err) => {
+    if (err) {
+      res.json({
+        status: 'fail',
+      });
+    } else {
+      res.json({
+        status: 'success',
+      });
+    }
+  });
 });
 
 module.exports = routes;
