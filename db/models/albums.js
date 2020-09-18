@@ -1,5 +1,20 @@
 const mongoose = require('mongoose');
 
+const imageSchema = mongoose.Schema(
+  {
+    small: {
+      type: String,
+    },
+    medium: {
+      type: String,
+    },
+    large: {
+      type: String,
+    },
+  },
+  { versionKey: false }
+);
+
 const contributingArtistSchema = mongoose.Schema(
   {
     name: {
@@ -29,9 +44,7 @@ const albumSchema = mongoose.Schema(
     title: {
       type: String,
     },
-    img: {
-      type: String,
-    },
+    img: imageSchema,
     year: {
       type: String,
     },
