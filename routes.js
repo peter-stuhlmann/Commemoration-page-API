@@ -108,21 +108,15 @@ routes.get('/discography', cors(corsOptionsDelegate), async (req, res) => {
         }
       );
 
-      const tracklist = album.tracklist.map((track) => {
-        return {
-          composer: track.composer,
-          piece: track.piece,
-        };
-      });
-
       return {
         id: album.id,
-        title: album.title,
+        number: album.number,
         img: images,
         year: album.year,
         format: album.format,
         contributingArtists: contributingArtists,
-        tracklist: tracklist,
+        composer: album.composer,
+        works: album.works,
         label: album.label,
       };
     });
@@ -151,21 +145,15 @@ routes.get('/discography/:id', cors(corsOptionsDelegate), async (req, res) => {
       }
     );
 
-    const tracklist = album[0].tracklist.map((track) => {
-      return {
-        composer: track.composer,
-        piece: track.piece,
-      };
-    });
-
     const response = {
       id: album[0].id,
-      title: album[0].title,
+      number: album[0].number,
       img: images,
       year: album[0].year,
       format: album[0].format,
       contributingArtists: contributingArtists,
-      tracklist: tracklist,
+      composer: album[0].composer,
+      works: album[0].works,
       label: album[0].label,
     };
 
@@ -310,11 +298,11 @@ routes.post('/send-message', cors(corsOptionsDelegate), (req, res) => {
   const subject = req.body.subject;
   const message = req.body.message;
   // const html = `<b>Name</b>: ${name}<br /><b>E-Mail:</b> ${email}<br /><b>Subject:</b> ${subject}<br /><b>Message:</b> ${message} `;
-  const text = `Name: ${name} \n E-Mail: ${email} \n Subject: ${subject} \n Message: ${message} `;
+  const text = `Name: ${name} \nE-Mail: ${email} \nSubject: ${subject} \nMessage: ${message} `;
 
   const mail = {
     from: `"${name}" ${email}`,
-    to: process.env.MAIL,
+    to: process.env.USER,
     subject: subject,
     // html: html,
     text: text,

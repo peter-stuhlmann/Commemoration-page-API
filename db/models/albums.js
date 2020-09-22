@@ -27,32 +27,25 @@ const contributingArtistSchema = mongoose.Schema(
   { versionKey: false }
 );
 
-const trackSchema = mongoose.Schema(
-  {
-    composer: {
-      type: String,
-    },
-    piece: {
-      type: String,
-    },
-  },
-  { versionKey: false }
-);
-
 const albumSchema = mongoose.Schema(
   {
-    title: {
-      type: String,
+    number: {
+      type: Number,
     },
     img: imageSchema,
     year: {
-      type: String,
+      type: Number,
     },
     format: {
       type: String,
     },
     contributingArtists: [contributingArtistSchema],
-    tracklist: [trackSchema],
+    composer: {
+      type: String,
+    },
+    works: {
+      type: String,
+    },
     label: {
       type: String,
     },
