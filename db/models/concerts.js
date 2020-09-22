@@ -12,25 +12,33 @@ const programSchema = mongoose.Schema(
   { versionKey: false }
 );
 
+const locationSchema = mongoose.Schema(
+  {
+    city: {
+      type: String,
+    },
+    state: {
+      type: String,
+    },
+  },
+  { versionKey: false }
+);
+
 const concertSchema = mongoose.Schema(
   {
     year: {
       type: Number,
     },
+    displayDate: {
+      type: Array,
+    },
     date: {
-      type: String,
+      type: Array,
     },
     program: [programSchema],
-    location: {
-      city: {
-        type: String,
-      },
-      state: {
-        type: String,
-      },
-    },
+    location: [locationSchema],
     venue: {
-      type: String,
+      type: Array,
     },
     participants: {
       type: Array,

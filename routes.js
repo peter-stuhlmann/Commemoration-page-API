@@ -45,12 +45,20 @@ routes.get('/concerts', cors(corsOptionsDelegate), async (req, res) => {
         };
       });
 
+      const locations = concert.location.map((location) => {
+        return {
+          city: location.city,
+          state: location.state,
+        };
+      });
+
       return {
         id: concert.id,
         year: concert.year,
+        displayDate: concert.displayDate,
         date: concert.date,
         program: programs,
-        location: concert.location,
+        location: locations,
         venue: concert.venue,
         participants: concert.participants,
       };
@@ -72,12 +80,20 @@ routes.get('/concerts/:id', cors(corsOptionsDelegate), async (req, res) => {
       };
     });
 
+    const locations = concert[0].location.map((location) => {
+      return {
+        city: location.city,
+        state: location.state,
+      };
+    });
+
     const response = {
       id: concert[0].id,
       year: concert[0].year,
+      displayDate: concert[0].displayDate,
       date: concert[0].date,
       program: programs,
-      location: concert[0].location,
+      location: locations,
       venue: concert[0].venue,
       participants: concert[0].participants,
     };
