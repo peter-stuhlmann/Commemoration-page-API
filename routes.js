@@ -52,6 +52,14 @@ routes.get('/concerts', cors(corsOptionsDelegate), async (req, res) => {
         };
       });
 
+      const attachments = concert.attachments.map((attachment) => {
+        return {
+          title: attachment.title,
+          description: attachment.description,
+          url: attachment.url,
+        };
+      });
+
       return {
         id: concert.id,
         year: concert.year,
@@ -61,6 +69,7 @@ routes.get('/concerts', cors(corsOptionsDelegate), async (req, res) => {
         location: locations,
         venue: concert.venue,
         participants: concert.participants,
+        attachments: attachments,
       };
     });
     res.json(response);
@@ -87,6 +96,14 @@ routes.get('/concerts/:id', cors(corsOptionsDelegate), async (req, res) => {
       };
     });
 
+    const attachments = concert[0].attachments.map((attachment) => {
+      return {
+        title: attachment.title,
+        description: attachment.description,
+        url: attachment.url,
+      };
+    });
+
     const response = {
       id: concert[0].id,
       year: concert[0].year,
@@ -96,6 +113,7 @@ routes.get('/concerts/:id', cors(corsOptionsDelegate), async (req, res) => {
       location: locations,
       venue: concert[0].venue,
       participants: concert[0].participants,
+      attachments: attachments,
     };
 
     res.json(response);

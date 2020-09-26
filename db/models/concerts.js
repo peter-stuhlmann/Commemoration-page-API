@@ -24,6 +24,21 @@ const locationSchema = mongoose.Schema(
   { versionKey: false }
 );
 
+const attachmentSchema = mongoose.Schema(
+  {
+    title: {
+      type: String,
+    },
+    description: {
+      type: String,
+    },
+    url: {
+      type: String,
+    },
+  },
+  { versionKey: false }
+);
+
 const concertSchema = mongoose.Schema(
   {
     year: {
@@ -43,6 +58,7 @@ const concertSchema = mongoose.Schema(
     participants: {
       type: Array,
     },
+    attachments: [attachmentSchema],
   },
   { versionKey: false }
 );
