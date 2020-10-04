@@ -273,6 +273,7 @@ routes.get('/pictures', cors(corsOptionsDelegate), async (req, res) => {
         height: picture.height,
         title: picture.title,
         alt: picture.alt,
+        copyright: picture.copyright,
       };
     });
     res.json(response);
@@ -294,6 +295,7 @@ routes.get('/pictures/:id', cors(corsOptionsDelegate), async (req, res) => {
       height: picture[0].height,
       title: picture[0].title,
       alt: picture[0].alt,
+      copyright: picture[0].copyright,
     };
     res.json(response);
   } catch (err) {
