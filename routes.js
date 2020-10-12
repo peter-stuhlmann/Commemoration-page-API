@@ -35,7 +35,7 @@ routes.get('/choirs', cors(corsOptionsDelegate), async (req, res) => {
 
 routes.get('/concerts', cors(corsOptionsDelegate), async (req, res) => {
   try {
-    const concerts = await Concert.find(req.query);
+    const concerts = await Concert.find(req.query).sort({ date: 1 });
 
     const response = concerts.map((concert) => {
       const programs = concert.program.map((program) => {
