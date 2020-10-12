@@ -261,7 +261,7 @@ routes.get('/pages/:path', cors(corsOptionsDelegate), async (req, res) => {
 
 routes.get('/pictures', cors(corsOptionsDelegate), async (req, res) => {
   try {
-    const pictures = await Picture.find(req.query);
+    const pictures = await Picture.find(req.query).sort({ date: 1 });
 
     const response = pictures.map((picture) => {
       return {
@@ -274,6 +274,7 @@ routes.get('/pictures', cors(corsOptionsDelegate), async (req, res) => {
         title: picture.title,
         alt: picture.alt,
         copyright: picture.copyright,
+        date: picture.date,
       };
     });
     res.json(response);
@@ -296,6 +297,7 @@ routes.get('/pictures/:id', cors(corsOptionsDelegate), async (req, res) => {
       title: picture[0].title,
       alt: picture[0].alt,
       copyright: picture[0].copyright,
+      date: picture[0].date,
     };
     res.json(response);
   } catch (err) {

@@ -26,6 +26,9 @@ const pictureSchema = mongoose.Schema(
     copyright: {
       type: String,
     },
+    date: {
+      type: String,
+    },
   },
   { versionKey: false }
 );
