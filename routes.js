@@ -6,6 +6,7 @@ const nodemailer = require('nodemailer');
 const corsOptionsDelegate = require('./corsOptions');
 
 const Album = require('./db/models/albums');
+const Card = require('./db/models/cards');
 const Choir = require('./db/models/choirs');
 const Concert = require('./db/models/concerts');
 const Orchestra = require('./db/models/orchestras');
@@ -15,6 +16,32 @@ const Repertoire = require('./db/models/repertoire');
 
 routes.get('/', cors(corsOptionsDelegate), (req, res) => {
   res.status(200).send('Hello World!');
+});
+
+routes.get('/cards', cors(corsOptionsDelegate), async (req, res) => {
+  try {
+    const cards = await Card.find(req.query).sort({ date: 1 });
+
+    const response = cards.map((card) => {
+      const img = {
+        src: card.img.src,
+        alt: card.img.alt,
+        title: card.img.title,
+      };
+
+      return {
+        id: card.id,
+        img: img,
+        title: card.title,
+        description: card.description,
+        href: card.href,
+        tags: card.tags,
+      };
+    });
+    res.json(response);
+  } catch (err) {
+    res.json({ error: err });
+  }
 });
 
 routes.get('/choirs', cors(corsOptionsDelegate), async (req, res) => {
