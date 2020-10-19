@@ -23,7 +23,7 @@ const pageSchema = mongoose.Schema(
       type: String,
     },
     content: {
-      type: String,
+      type: Array,
     },
     meta: metaSchema,
   },
