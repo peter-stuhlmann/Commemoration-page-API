@@ -1,5 +1,36 @@
 const mongoose = require('mongoose');
 
+const imgSizesSchema = mongoose.Schema(
+  {
+    small: {
+      type: String,
+    },
+    medium: {
+      type: String,
+    },
+    large: {
+      type: String,
+    },
+  },
+  { versionKey: false }
+);
+
+const imgSchema = mongoose.Schema(
+  {
+    title: {
+      type: String,
+    },
+    alt: {
+      type: String,
+    },
+    copyright: {
+      type: String,
+    },
+    size: imgSizesSchema,
+  },
+  { versionKey: false }
+);
+
 const metaSchema = mongoose.Schema(
   {
     title: {
@@ -25,6 +56,7 @@ const pageSchema = mongoose.Schema(
     content: {
       type: Array,
     },
+    img: imgSchema,
     meta: metaSchema,
   },
   { versionKey: false }
