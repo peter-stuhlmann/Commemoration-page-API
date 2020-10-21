@@ -258,7 +258,7 @@ routes.get('/pages', cors(corsOptionsDelegate), async (req, res) => {
         size: imgSizes,
       };
 
-      const metaData = {
+      const metaData = page.meta && {
         title: page.meta.title,
         description: page.meta.description,
       };
@@ -282,11 +282,12 @@ routes.get('/pages/:path', cors(corsOptionsDelegate), async (req, res) => {
   try {
     const page = await Page.find({ path: req.params.path });
 
-    const imgSizes = page[0].img.size && {
-      small: page[0].img.size.small,
-      medium: page[0].img.size.medium,
-      large: page[0].img.size.large,
-    };
+    const imgSizes = page[0].img &&
+      page[0].img.size && {
+        small: page[0].img.size.small,
+        medium: page[0].img.size.medium,
+        large: page[0].img.size.large,
+      };
 
     const img = page[0].img && {
       title: page[0].img.title,
@@ -295,7 +296,7 @@ routes.get('/pages/:path', cors(corsOptionsDelegate), async (req, res) => {
       size: imgSizes,
     };
 
-    const metaData = {
+    const metaData = page[0].meta && {
       title: page[0].meta.title,
       description: page[0].meta.description,
     };
