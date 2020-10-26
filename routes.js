@@ -20,7 +20,7 @@ routes.get('/', cors(corsOptionsDelegate), (req, res) => {
 
 routes.get('/cards', cors(corsOptionsDelegate), async (req, res) => {
   try {
-    const cards = await Card.find(req.query).sort({ date: 1 });
+    const cards = await Card.find(req.query);
 
     const response = cards.map((card) => {
       const img = {
@@ -46,7 +46,7 @@ routes.get('/cards', cors(corsOptionsDelegate), async (req, res) => {
 
 routes.get('/choirs', cors(corsOptionsDelegate), async (req, res) => {
   try {
-    const choirs = await Choir.find(req.query);
+    const choirs = await Choir.find(req.query).sort({ choir: 1 });
 
     const response = choirs.map((choir) => {
       return {
@@ -151,7 +151,7 @@ routes.get('/concerts/:id', cors(corsOptionsDelegate), async (req, res) => {
 
 routes.get('/discography', cors(corsOptionsDelegate), async (req, res) => {
   try {
-    const albums = await Album.find(req.query);
+    const albums = await Album.find(req.query).sort({ number: 1 });
 
     const response = albums.map((album) => {
       const images = {
@@ -226,7 +226,7 @@ routes.get('/discography/:id', cors(corsOptionsDelegate), async (req, res) => {
 
 routes.get('/orchestras', cors(corsOptionsDelegate), async (req, res) => {
   try {
-    const orchestras = await Orchestra.find(req.query);
+    const orchestras = await Orchestra.find(req.query).sort({ orchestra: 1 });
 
     const response = orchestras.map((orchestra) => {
       return {
@@ -363,7 +363,7 @@ routes.get('/pictures/:id', cors(corsOptionsDelegate), async (req, res) => {
 
 routes.get('/repertoire', cors(corsOptionsDelegate), async (req, res) => {
   try {
-    const repertoire = await Repertoire.find(req.query);
+    const repertoire = await Repertoire.find(req.query).sort({ piece: 1 });
 
     const response = repertoire.map((piece) => {
       return {
