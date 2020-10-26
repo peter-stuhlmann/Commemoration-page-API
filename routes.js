@@ -9,6 +9,7 @@ const Album = require('./db/models/albums');
 const Card = require('./db/models/cards');
 const Choir = require('./db/models/choirs');
 const Concert = require('./db/models/concerts');
+const Year = require('./db/models/cv');
 const Orchestra = require('./db/models/orchestras');
 const Page = require('./db/models/pages');
 const Picture = require('./db/models/pictures');
@@ -141,6 +142,77 @@ routes.get('/concerts/:id', cors(corsOptionsDelegate), async (req, res) => {
       venue: concert[0].venue,
       participants: concert[0].participants,
       attachments: attachments,
+    };
+
+    res.json(response);
+  } catch (err) {
+    res.json({ error: err });
+  }
+});
+
+routes.get('/cv', cors(corsOptionsDelegate), async (req, res) => {
+  try {
+    const years = await Year.find(req.query).sort({ year: 1 });
+
+    const response = years.map((year) => {
+
+      const events = year.events.map((event) => {
+        
+        const mediaFiles = event.media.map((item) => {
+          return {
+            title: item.title,
+            path: item.path,
+            format: item.format,
+          };
+        });
+
+        return {
+          date: event.date,
+          title: event.title,
+          description: event.description,
+          media: mediaFiles,
+        };
+      });
+
+      return {
+        id: year.id,
+        year: year.year,
+        events: events,
+      };
+    });
+
+    res.json(response);
+  } catch (err) {
+    res.json({ error: err });
+  }
+});
+
+routes.get('/cv/:year', cors(corsOptionsDelegate), async (req, res) => {
+  try {
+    const year = await Year.find({ year: req.params.year });
+
+    const events = year[0].events.map((event) => {
+        
+      const mediaFiles = event.media.map((item) => {
+        return {
+          title: item.title,
+          path: item.path,
+          format: item.format,
+        };
+      });
+
+      return {
+        date: event.date,
+        title: event.title,
+        description: event.description,
+        media: mediaFiles,
+      };
+    });
+
+    const response = {
+      id: year[0].id,
+      year: year[0].year,
+      events: events,
     };
 
     res.json(response);

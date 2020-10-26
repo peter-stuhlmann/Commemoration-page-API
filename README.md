@@ -25,6 +25,9 @@
 `/concerts`  
 `/concerts/:id`
 
+`/cv`  
+`/cv/:year`
+
 `/discography`  
 `/discography/:id`
 
