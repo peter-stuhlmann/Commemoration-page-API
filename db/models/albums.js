@@ -61,7 +61,7 @@ const attachmentSchema = mongoose.Schema(
       type: String,
     },
     type: {
-      type: Array,
+      type: String,
     },
   },
   { versionKey: false }
