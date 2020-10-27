@@ -274,9 +274,9 @@ routes.get('/discography', cors(corsOptionsDelegate), async (req, res) => {
   }
 });
 
-routes.get('/discography/:id', cors(corsOptionsDelegate), async (req, res) => {
+routes.get('/discography/:number', cors(corsOptionsDelegate), async (req, res) => {
   try {
-    const album = await Album.find({ _id: req.params.id });
+    const album = await Album.find({ number: req.params.number });
 
     const images = {
       small: album[0].img.small,

@@ -29,7 +29,7 @@
 `/cv/:year`
 
 `/discography`  
-`/discography/:id`
+`/discography/:number`
 
 `/orchestras`
 
