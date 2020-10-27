@@ -241,6 +241,22 @@ routes.get('/discography', cors(corsOptionsDelegate), async (req, res) => {
         }
       );
 
+      const composer = album.composer.map((composer) => {
+        
+        const works = composer.works.map((work) => {
+          return {
+            title: work.title,
+            movements: work.movements,
+          };
+        });
+          
+        return {
+          name: composer.name,
+          years: composer.years,
+          works: works,
+        };
+      });
+
       return {
         id: album.id,
         number: album.number,
@@ -248,8 +264,7 @@ routes.get('/discography', cors(corsOptionsDelegate), async (req, res) => {
         year: album.year,
         format: album.format,
         contributingArtists: contributingArtists,
-        composer: album.composer,
-        works: album.works,
+        composer: composer,
         label: album.label,
       };
     });
@@ -278,6 +293,22 @@ routes.get('/discography/:id', cors(corsOptionsDelegate), async (req, res) => {
       }
     );
 
+    const composer = album[0].composer.map((composer) => {
+        
+      const works = composer.works.map((work) => {
+        return {
+          title: work.title,
+          movements: work.movements,
+        };
+      });
+        
+      return {
+        name: composer.name,
+        years: composer.years,
+        works: works,
+      };
+    });
+
     const response = {
       id: album[0].id,
       number: album[0].number,
@@ -285,8 +316,7 @@ routes.get('/discography/:id', cors(corsOptionsDelegate), async (req, res) => {
       year: album[0].year,
       format: album[0].format,
       contributingArtists: contributingArtists,
-      composer: album[0].composer,
-      works: album[0].works,
+      composer: composer,
       label: album[0].label,
     };
 

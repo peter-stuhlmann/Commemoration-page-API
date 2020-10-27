@@ -27,6 +27,46 @@ const contributingArtistSchema = mongoose.Schema(
   { versionKey: false }
 );
 
+const worksSchema = mongoose.Schema(
+  {
+    title: {
+      type: String,
+    },
+    movements: {
+      type: Array,
+    },
+  },
+  { versionKey: false }
+);
+
+const composerSchema = mongoose.Schema(
+  {
+    name: {
+      type: String,
+    },
+    years: {
+      type: String,
+    },
+    works: [worksSchema],
+  },
+  { versionKey: false }
+);
+
+const attachmentSchema = mongoose.Schema(
+  {
+    title: {
+      type: String,
+    },
+    link: {
+      type: String,
+    },
+    type: {
+      type: Array,
+    },
+  },
+  { versionKey: false }
+);
+
 const albumSchema = mongoose.Schema(
   {
     number: {
@@ -40,15 +80,11 @@ const albumSchema = mongoose.Schema(
       type: String,
     },
     contributingArtists: [contributingArtistSchema],
-    composer: {
-      type: String,
-    },
-    works: {
-      type: String,
-    },
+    composer: [composerSchema],
     label: {
       type: String,
     },
+    attachments: [attachmentSchema],
   },
   { versionKey: false }
 );
