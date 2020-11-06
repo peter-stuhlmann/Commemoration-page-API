@@ -72,6 +72,9 @@ const albumSchema = mongoose.Schema(
     number: {
       type: Number,
     },
+    title: {
+      type: String,
+    },
     img: imageSchema,
     year: {
       type: String,

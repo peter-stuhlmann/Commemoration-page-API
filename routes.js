@@ -260,6 +260,7 @@ routes.get('/discography', cors(corsOptionsDelegate), async (req, res) => {
       return {
         id: album.id,
         number: album.number,
+        title: album.title,
         img: images,
         year: album.year,
         format: album.format,
@@ -312,6 +313,7 @@ routes.get('/discography/:number', cors(corsOptionsDelegate), async (req, res) =
     const response = {
       id: album[0].id,
       number: album[0].number,
+      title: album[0].title,
       img: images,
       year: album[0].year,
       format: album[0].format,
