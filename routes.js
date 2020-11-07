@@ -467,12 +467,17 @@ routes.get('/pictures/:id', cors(corsOptionsDelegate), async (req, res) => {
 
 routes.get('/repertoire', cors(corsOptionsDelegate), async (req, res) => {
   try {
-    const repertoire = await Repertoire.find(req.query).sort({ piece: 1 });
+    const repertoire = await Repertoire.find(req.query).sort({'piece.plain' : 1});
 
     const response = repertoire.map((piece) => {
+      const pieceSchema = {
+        plain: piece.piece.plain,
+        html: piece.piece.html,
+      };
+
       return {
         id: piece.id,
-        piece: piece.piece,
+        piece: pieceSchema,
       };
     });
     res.json(response);

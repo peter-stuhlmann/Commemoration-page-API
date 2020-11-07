@@ -1,10 +1,20 @@
 const mongoose = require('mongoose');
 
-const repertoireSchema = mongoose.Schema(
+const pieceSchema = mongoose.Schema(
   {
-    piece: {
+    plain: {
       type: String,
     },
+    html: {
+      type: String,
+    },
+  },
+  { versionKey: false }
+);
+
+const repertoireSchema = mongoose.Schema(
+  {
+    piece: pieceSchema,
   },
   { versionKey: false }
 );
