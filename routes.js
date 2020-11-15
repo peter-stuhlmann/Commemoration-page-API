@@ -11,6 +11,7 @@ const Choir = require('./db/models/choirs');
 const Concert = require('./db/models/concerts');
 const Year = require('./db/models/cv');
 const Orchestra = require('./db/models/orchestras');
+const Memory = require('./db/models/memories');
 const Page = require('./db/models/pages');
 const Picture = require('./db/models/pictures');
 const Repertoire = require('./db/models/repertoire');
@@ -322,6 +323,40 @@ routes.get('/discography/:number', cors(corsOptionsDelegate), async (req, res) =
       label: album[0].label,
     };
 
+    res.json(response);
+  } catch (err) {
+    res.json({ error: err });
+  }
+});
+
+routes.get('/memories', cors(corsOptionsDelegate), async (req, res) => {
+  try {
+    const memories = await Memory.find(req.query).sort({ 'author.name.lastName': 1 });
+
+    const response = memories.map((memory) => {
+      const name = {
+        firstName: memory.author.name.firstName,
+        lastName: memory.author.name.lastName,
+      }
+
+      const img = {
+        src: memory.author.img.src,
+        alt: memory.author.img.alt,
+        copyright: memory.author.img.copyright,
+      }
+
+      const author = {
+        name: name,
+        img: img,
+        biography: memory.author.biography,
+      };
+
+      return {
+        id: memory.id,
+        author: author,
+        text: memory.text,
+      };
+    });
     res.json(response);
   } catch (err) {
     res.json({ error: err });
