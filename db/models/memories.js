@@ -12,7 +12,7 @@ const nameSchema = mongoose.Schema(
   { versionKey: false }
 );
 
-const imgSchema = mongoose.Schema(
+const avatarSchema = mongoose.Schema(
   {
     src: {
       type: String,
@@ -27,9 +27,38 @@ const imgSchema = mongoose.Schema(
   { versionKey: false }
 );
 
+const imgSrcSchema = mongoose.Schema(
+  {
+    small: {
+      type: String,
+    },
+    medium: {
+      type: String,
+    },
+    large: {
+      type: String,
+    },
+  },
+  { versionKey: false }
+);
+
+const imgSchema = mongoose.Schema(
+  {
+    src: imgSrcSchema,
+    alt: {
+      type: String,
+    },
+    copyright: {
+      type: String,
+    },
+  },
+  { versionKey: false }
+);
+
 const authorSchema = mongoose.Schema(
   {
     name: nameSchema,
+    avatar: avatarSchema,
     img: imgSchema,
     biography: {
       type: Array,

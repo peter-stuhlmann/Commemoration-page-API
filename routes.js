@@ -339,14 +339,27 @@ routes.get('/memories', cors(corsOptionsDelegate), async (req, res) => {
         lastName: memory.author.name.lastName,
       }
 
+      const avatar = {
+        src: memory.author.avatar.src,
+        alt: memory.author.avatar.alt,
+        copyright: memory.author.avatar.copyright,
+      }
+
+      const imgSrc = {
+        small: memory.author.img.src.small,
+        medium: memory.author.img.src.medium,
+        large: memory.author.img.src.large,
+      }
+
       const img = {
-        src: memory.author.img.src,
+        src: imgSrc,
         alt: memory.author.img.alt,
         copyright: memory.author.img.copyright,
       }
 
       const author = {
         name: name,
+        avatar: avatar,
         img: img,
         biography: memory.author.biography,
       };
@@ -373,15 +386,15 @@ routes.get('/memories/authors', cors(corsOptionsDelegate), async (req, res) => {
         lastName: memory.author.name.lastName,
       }
 
-      const img = {
-        src: memory.author.img.src,
-        alt: memory.author.img.alt,
-        copyright: memory.author.img.copyright,
+      const avatar = {
+        src: memory.author.avatar.src,
+        alt: memory.author.avatar.alt,
+        copyright: memory.author.avatar.copyright,
       }
 
       const author = {
         name: name,
-        img: img,
+        avatar: avatar,
       };
 
       return {
@@ -404,14 +417,27 @@ routes.get('/memories/:id', cors(corsOptionsDelegate), async (req, res) => {
       lastName: memory[0].author.name.lastName,
     }
 
+    const avatar = {
+      src: memory[0].author.avatar.src,
+      alt: memory[0].author.avatar.alt,
+      copyright: memory[0].author.avatar.copyright,
+    }
+
+    const imgSrc = {
+      small: memory[0].author.img.src.small,
+      medium: memory[0].author.img.src.medium,
+      large: memory[0].author.img.src.large,
+    }
+
     const img = {
-      src: memory[0].author.img.src,
+      src: imgSrc,
       alt: memory[0].author.img.alt,
       copyright: memory[0].author.img.copyright,
     }
 
     const author = {
       name: name,
+      avatar: avatar,
       img: img,
       biography: memory[0].author.biography,
     };
