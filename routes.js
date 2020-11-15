@@ -363,6 +363,71 @@ routes.get('/memories', cors(corsOptionsDelegate), async (req, res) => {
   }
 });
 
+routes.get('/memories/authors', cors(corsOptionsDelegate), async (req, res) => {
+  try {
+    const memories = await Memory.find(req.query).sort({ 'author.name.lastName': 1 });
+
+    const response = memories.map((memory) => {
+      const name = {
+        firstName: memory.author.name.firstName,
+        lastName: memory.author.name.lastName,
+      }
+
+      const img = {
+        src: memory.author.img.src,
+        alt: memory.author.img.alt,
+        copyright: memory.author.img.copyright,
+      }
+
+      const author = {
+        name: name,
+        img: img,
+      };
+
+      return {
+        id: memory.id,
+        author: author,
+      };
+    });
+    res.json(response);
+  } catch (err) {
+    res.json({ error: err });
+  }
+});
+
+routes.get('/memories/:id', cors(corsOptionsDelegate), async (req, res) => {
+  try {
+    const memory = await Memory.find({ _id: req.params.id });
+
+    const name = {
+      firstName: memory[0].author.name.firstName,
+      lastName: memory[0].author.name.lastName,
+    }
+
+    const img = {
+      src: memory[0].author.img.src,
+      alt: memory[0].author.img.alt,
+      copyright: memory[0].author.img.copyright,
+    }
+
+    const author = {
+      name: name,
+      img: img,
+      biography: memory[0].author.biography,
+    };
+
+    const response = {
+      id: memory[0].id,
+      author: author,
+      text: memory[0].text,
+    };
+  
+    res.json(response);
+  } catch (err) {
+    res.json({ error: err });
+  }
+});
+
 routes.get('/orchestras', cors(corsOptionsDelegate), async (req, res) => {
   try {
     const orchestras = await Orchestra.find(req.query).sort({ orchestra: 1 });

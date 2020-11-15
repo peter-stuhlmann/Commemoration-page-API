@@ -31,6 +31,10 @@
 `/discography`  
 `/discography/:number`
 
+`/memories`  
+`/memories/authors`
+`/memories/:id`
+
 `/orchestras`
 
 `/pages`  
