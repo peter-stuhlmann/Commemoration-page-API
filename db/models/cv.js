@@ -11,6 +11,9 @@ const mediaSchema = mongoose.Schema(
     format: {
       type: String,
     },
+    language: {
+      type: String,
+    },
   },
   { versionKey: false }
 );

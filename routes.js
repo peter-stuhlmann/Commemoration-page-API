@@ -164,6 +164,7 @@ routes.get('/cv', cors(corsOptionsDelegate), async (req, res) => {
             title: item.title,
             path: item.path,
             format: item.format,
+            language: item.language,
           };
         });
 
@@ -199,6 +200,7 @@ routes.get('/cv/:year', cors(corsOptionsDelegate), async (req, res) => {
           title: item.title,
           path: item.path,
           format: item.format,
+          language: item.language,
         };
       });
 
