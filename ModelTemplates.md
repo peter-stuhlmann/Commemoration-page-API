@@ -111,14 +111,25 @@
       "date": "",
       "title": "",
       "description": "",
-      "media": [
-        {
-          "title": "",
-          "path": "",
-          "format": "",
-          "language": ""
-        }
-      ]
+      "media": {
+        "img": [
+          {
+            "title": "",
+            "path": {
+              "small": "",
+              "medium": "",
+              "large": ""
+            }
+          }
+        ],
+        "pdf": [
+          {
+            "title": "",
+            "path": "",
+            "language": ""
+          }
+        ]
+      }
     }
   ]
 }

@@ -159,14 +159,32 @@ routes.get('/cv', cors(corsOptionsDelegate), async (req, res) => {
 
       const events = year.events.map((event) => {
         
-        const mediaFiles = event.media.map((item) => {
+        const imgFiles = event.media.img.map((img) => {
+
+          const imgSizes = {
+            small: img.path.small,
+            medium: img.path.medium,
+            large: img.path.large,
+          };
+          
           return {
-            title: item.title,
-            path: item.path,
-            format: item.format,
-            language: item.language,
+            title: img.title,
+            path: imgSizes,
           };
         });
+
+        const pdfFiles = event.media.pdf.map((pdf) => {
+          return {
+            title: pdf.title,
+            path: pdf.path,
+            language: pdf.language,
+          };
+        });
+
+        const mediaFiles = {          
+          img: imgFiles,
+          pdf: pdfFiles,
+        };
 
         return {
           date: event.date,
@@ -195,14 +213,32 @@ routes.get('/cv/:year', cors(corsOptionsDelegate), async (req, res) => {
 
     const events = year[0].events.map((event) => {
         
-      const mediaFiles = event.media.map((item) => {
+      const imgFiles = event.media.img.map((img) => {
+
+        const imgSizes = {
+          small: img.path.small,
+          medium: img.path.medium,
+          large: img.path.large,
+        };
+        
         return {
-          title: item.title,
-          path: item.path,
-          format: item.format,
-          language: item.language,
+          title: img.title,
+          path: imgSizes,
         };
       });
+
+      const pdfFiles = event.media.pdf.map((pdf) => {
+        return {
+          title: pdf.title,
+          path: pdf.path,
+          language: pdf.language,
+        };
+      });
+
+      const mediaFiles = {          
+        img: imgFiles,
+        pdf: pdfFiles,
+      };
 
       return {
         date: event.date,

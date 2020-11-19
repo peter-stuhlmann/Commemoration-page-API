@@ -1,6 +1,31 @@
 const mongoose = require('mongoose');
 
-const mediaSchema = mongoose.Schema(
+const imgSizeSchema = mongoose.Schema(
+  {
+    small: {
+      type: String,
+    },
+    medium: {
+      type: String,
+    },
+    large: {
+      type: String,
+    },
+  },
+  { versionKey: false }
+);
+
+const imgSchema = mongoose.Schema(
+  {
+    title: {
+      type: String,
+    },
+    path: imgSizeSchema,
+  },
+  { versionKey: false }
+);
+
+const pdfSchema = mongoose.Schema(
   {
     title: {
       type: String,
@@ -8,12 +33,17 @@ const mediaSchema = mongoose.Schema(
     path: {
       type: String,
     },
-    format: {
-      type: String,
-    },
     language: {
       type: String,
     },
+  },
+  { versionKey: false }
+);
+
+const mediaSchema = mongoose.Schema(
+  {
+    img: [imgSchema],
+    pdf: [pdfSchema],
   },
   { versionKey: false }
 );
@@ -29,7 +59,7 @@ const eventsSchema = mongoose.Schema(
     description: {
       type: String,
     },
-    media: [mediaSchema],
+    media: mediaSchema,
   },
   { versionKey: false }
 );
