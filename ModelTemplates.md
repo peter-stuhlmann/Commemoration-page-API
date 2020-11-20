@@ -225,3 +225,15 @@
   "html": ""
 }
 ```
+
+
+## send-message (POST)
+
+```javascript
+{
+  "name": "",
+  "email": "",
+  "subject": "",
+  "message": ""
+}
+```
