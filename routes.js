@@ -262,7 +262,7 @@ routes.get('/cv/:year', cors(corsOptionsDelegate), async (req, res) => {
 
 routes.get('/discography', cors(corsOptionsDelegate), async (req, res) => {
   try {
-    const albums = await Album.find(req.query).sort({ number: 1 });
+    const albums = await Album.find(req.query).sort({ number: -1 });
 
     const response = albums.map((album) => {
       const images = {
