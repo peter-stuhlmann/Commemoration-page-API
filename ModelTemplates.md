@@ -1,5 +1,19 @@
 # Model templates
 
+- [albums (discography)](#albums-discography)
+- [cards](#cards)
+- [choirs](#choirs)
+- [concerts](#concerts)
+- [events (cv)](#events-cv)
+- [memories](#memories)
+- [orchestras](#orchestras)
+- [pages](#pages)
+- [pictures](#pictures)
+- [repertoire](#repertoire)
+- [send-message](#send-message-post)
+
+---
+
 ## albums (discography)
 
 ```javascript
