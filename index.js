@@ -3,21 +3,14 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 4000;
 const bodyParser = require('body-parser');
-const connectMongo = require('./db/db');
-const cors = require('cors');
 
-const corsOptionsDelegate = require('./corsOptions');
-
-const router = require('./routes/index'); 
+const router = require('./routes/index');
 
 // connect to DB
+const connectMongo = require('./db/db');
 connectMongo();
 
 app.use(bodyParser.json());
-
-app.get('/', cors(corsOptionsDelegate), (req, res) => {
-  res.status(200).send('Hello World!');
-});
 
 app.use('/', router);
 
