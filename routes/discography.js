@@ -11,10 +11,25 @@ router.get('/', cors(corsOptionsDelegate), async (req, res) => {
     const albums = await Album.find(req.query).sort({ number: -1 });
 
     const response = albums.map((album) => {
-      const images = {
-        small: album.img.small,
-        medium: album.img.medium,
-        large: album.img.large,
+      const squareCover = {
+        small: album.cover.format.square.small,
+        medium: album.cover.format.square.medium,
+        large: album.cover.format.square.large,
+      };
+
+      const originalCover = {
+        small: album.cover.format.original.small,
+        medium: album.cover.format.original.medium,
+        large: album.cover.format.original.large,
+      };
+
+      const coverFormat = {
+        square: squareCover,
+        original: originalCover,
+      };
+
+      const cover = {
+        format: coverFormat,
       };
 
       const contributingArtists = album.contributingArtists.map(
@@ -27,14 +42,13 @@ router.get('/', cors(corsOptionsDelegate), async (req, res) => {
       );
 
       const composer = album.composer.map((composer) => {
-        
         const works = composer.works.map((work) => {
           return {
             title: work.title,
             movements: work.movements,
           };
         });
-          
+
         return {
           name: composer.name,
           years: composer.years,
@@ -46,7 +60,7 @@ router.get('/', cors(corsOptionsDelegate), async (req, res) => {
         id: album.id,
         number: album.number,
         title: album.title,
-        img: images,
+        cover: cover,
         year: album.year,
         format: album.format,
         contributingArtists: contributingArtists,
@@ -64,10 +78,25 @@ router.get('/:number', cors(corsOptionsDelegate), async (req, res) => {
   try {
     const album = await Album.find({ number: req.params.number });
 
-    const images = {
-      small: album[0].img.small,
-      medium: album[0].img.medium,
-      large: album[0].img.large,
+    const squareCover = {
+      small: album[0].cover.format.square.small,
+      medium: album[0].cover.format.square.medium,
+      large: album[0].cover.format.square.large,
+    };
+
+    const originalCover = {
+      small: album[0].cover.format.original.small,
+      medium: album[0].cover.format.original.medium,
+      large: album[0].cover.format.original.large,
+    };
+
+    const coverFormat = {
+      square: squareCover,
+      original: originalCover,
+    };
+
+    const cover = {
+      format: coverFormat,
     };
 
     const contributingArtists = album[0].contributingArtists.map(
@@ -80,14 +109,13 @@ router.get('/:number', cors(corsOptionsDelegate), async (req, res) => {
     );
 
     const composer = album[0].composer.map((composer) => {
-        
       const works = composer.works.map((work) => {
         return {
           title: work.title,
           movements: work.movements,
         };
       });
-        
+
       return {
         name: composer.name,
         years: composer.years,
@@ -99,7 +127,7 @@ router.get('/:number', cors(corsOptionsDelegate), async (req, res) => {
       id: album[0].id,
       number: album[0].number,
       title: album[0].title,
-      img: images,
+      cover: cover,
       year: album[0].year,
       format: album[0].format,
       contributingArtists: contributingArtists,
@@ -112,6 +140,5 @@ router.get('/:number', cors(corsOptionsDelegate), async (req, res) => {
     res.json({ error: err });
   }
 });
-
 
 module.exports = router;

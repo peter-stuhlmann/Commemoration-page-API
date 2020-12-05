@@ -18,29 +18,38 @@
 
 ```javascript
 {
-  "number": "",
+  "number": i,
   "title": "",
-  "img": {
-    "small": "",
-    "medium": "",
-    "large": "",
+  "cover": {
+    "format": {
+      "square": {
+        "small": "",
+        "medium": "",
+        "large": ""
+      },
+      "original": {
+        "small": "",
+        "medium": "",
+        "large": ""
+      }
+    }
   },
   "year": "",
   "format": "",
   "contributingArtists": [
     {
       "name": "",
-      "instrument": "",
+      "instrument": ""
     }
   ],
   "composer": [
     {
       "name": "",
       "years": "",
-      "works": [  
+      "works": [
         {
           "title": "",
-          "movements": [""],
+          "movements": [""]
         }
       ]
     }
@@ -50,12 +59,11 @@
     {
       "title": "",
       "link": "",
-      "type": "",
+      "type": ""
     }
   ]
 }
 ```
-
 
 ## cards
 
@@ -73,7 +81,6 @@
 }
 ```
 
-
 ## choirs
 
 ```javascript
@@ -81,7 +88,6 @@
   "choir": ""
 }
 ```
-
 
 ## concerts
 
@@ -113,7 +119,6 @@
   ]
 }
 ```
-
 
 ## events (CV)
 
@@ -149,7 +154,6 @@
 }
 ```
 
-
 ## memories
 
 ```javascript
@@ -179,7 +183,6 @@
 }
 ```
 
-
 ## orchestras
 
 ```javascript
@@ -187,7 +190,6 @@
   "orchestra": ""
 }
 ```
-
 
 ## pages
 
@@ -213,7 +215,6 @@
 }
 ```
 
-
 ## pictures
 
 ```javascript
@@ -230,7 +231,6 @@
 }
 ```
 
-
 ## repertoire
 
 ```javascript
@@ -239,7 +239,6 @@
   "html": ""
 }
 ```
-
 
 ## send-message (POST)
 

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const imageSchema = mongoose.Schema(
+const squareSizesSchema = mongoose.Schema(
   {
     small: {
       type: String,
@@ -11,6 +11,36 @@ const imageSchema = mongoose.Schema(
     large: {
       type: String,
     },
+  },
+  { versionKey: false }
+);
+
+const originalSizesSchema = mongoose.Schema(
+  {
+    small: {
+      type: String,
+    },
+    medium: {
+      type: String,
+    },
+    large: {
+      type: String,
+    },
+  },
+  { versionKey: false }
+);
+
+const coverFormatSchema = mongoose.Schema(
+  {
+    square: squareSizesSchema,
+    original: originalSizesSchema,
+  },
+  { versionKey: false }
+);
+
+const coverSchema = mongoose.Schema(
+  {
+    format: coverFormatSchema,
   },
   { versionKey: false }
 );
@@ -75,7 +105,7 @@ const albumSchema = mongoose.Schema(
     title: {
       type: String,
     },
-    img: imageSchema,
+    cover: coverSchema,
     year: {
       type: String,
     },
