@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const fetch = require('node-fetch');
 const fs = require('fs');
+const archiver = require('archiver');
 
 const routes = require('./routes');
 
@@ -44,6 +45,11 @@ const createBackup = () => {
       .then((text) => {
         // json
         fs.writeFile(`${dir}/${backupTime}/${route}.json`, text, function () {
+          const jsonFile = `${dir}/${backupTime}/${route}.json`;
+          archive.append(fs.createReadStream(jsonFile), {
+            name: `${route}.json`,
+          });
+
           if (text.startsWith('[')) {
             console.log(
               colors.green,
@@ -52,6 +58,7 @@ const createBackup = () => {
             );
             progress = progress + 1;
             if (progress === routes.length) {
+              archive.finalize();
               resume();
             }
           } else {
@@ -63,6 +70,7 @@ const createBackup = () => {
             );
             progress = progress + 1;
             if (progress === routes.length) {
+              archive.finalize();
               resume();
             }
           }
@@ -88,6 +96,9 @@ const createBackup = () => {
 
 // resume
 const resume = () => {
+  output.on('close', function () {});
+  archive.pipe(output);
+
   if (errorCounter > 0) {
     console.log(
       colors.red,
@@ -108,4 +119,12 @@ const resume = () => {
 };
 
 createDirectories();
+
+const output = fs.createWriteStream(
+  `${dir}/${backupTime}/${process.env.API_NAME || 'api'}--${backupTime}.zip`
+);
+const archive = archiver('zip', {
+  zlib: { level: 9 },
+});
+
 createBackup();
