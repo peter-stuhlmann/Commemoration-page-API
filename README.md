@@ -32,7 +32,7 @@
 `/discography/:number`
 
 `/memories`  
-`/memories/authors`
+`/memories/authors`  
 `/memories/:id`
 
 `/orchestras`
@@ -42,6 +42,8 @@
 
 `/pictures`  
 `/pictures/:id`
+
+`/premieres`
 
 `/repertoire`
 

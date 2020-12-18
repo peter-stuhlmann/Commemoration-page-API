@@ -8,6 +8,7 @@ const routes = [
   'orchestras',
   'pages',
   'pictures',
+  'premieres',
   'repertoire',
 ];
 

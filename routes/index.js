@@ -4,18 +4,18 @@ const cors = require('cors');
 
 const corsOptionsDelegate = require('../corsOptions');
 
-const cards = require('./cards'); 
-const choirs = require('./choirs'); 
-const concerts = require('./concerts'); 
-const cv = require('./cv'); 
-const discography = require('./discography'); 
-const memories = require('./memories'); 
-const orchestras = require('./orchestras'); 
-const pages = require('./pages'); 
-const pictures = require('./pictures'); 
-const repertoire = require('./repertoire'); 
-const sendMessage = require('./send-message'); 
-
+const cards = require('./cards');
+const choirs = require('./choirs');
+const concerts = require('./concerts');
+const cv = require('./cv');
+const discography = require('./discography');
+const memories = require('./memories');
+const orchestras = require('./orchestras');
+const pages = require('./pages');
+const pictures = require('./pictures');
+const premieres = require('./premieres');
+const repertoire = require('./repertoire');
+const sendMessage = require('./send-message');
 
 router.get('/', cors(corsOptionsDelegate), (req, res) => {
   res.status(200).send('Hello World!');
@@ -30,6 +30,7 @@ router.use('/memories', memories);
 router.use('/orchestras', orchestras);
 router.use('/pages', pages);
 router.use('/pictures', pictures);
+router.use('/premieres', premieres);
 router.use('/repertoire', repertoire);
 router.use('/send-message', sendMessage);
 

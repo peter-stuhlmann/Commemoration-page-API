@@ -231,6 +231,15 @@
 }
 ```
 
+## premieres
+
+```javascript
+"piece": {
+  "plain": "",
+  "html": ""
+}
+```
+
 ## repertoire
 
 ```javascript
